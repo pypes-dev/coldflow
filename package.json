@@ -1,0 +1,17 @@
+{
+  "name": "coldflow",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "docker compose up -d && pnpm -r dev",
+    "build": "pnpm -r build",
+    "lint": "pnpm -r lint",
+    "db:generate": "pnpm --filter db db:generate",
+    "db:migrate": "pnpm --filter db db:migrate" 
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.23.0"
+}

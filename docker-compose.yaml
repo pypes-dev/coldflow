@@ -1,0 +1,39 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: coldflow-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: coldflow
+      POSTGRES_PASSWORD: coldflow
+      POSTGRES_DB: coldflow
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U coldflow -d coldflow"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    networks:
+      - coldflow-network
+  pg-admin:
+    # ref: https://hub.docker.com/r/dpage/pgadmin4/tags
+    image: dpage/pgadmin4:latest
+    container_name: pg-admin
+    restart: always
+    ports:
+      - 8081:80
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    networks:
+      - coldflow-network
+
+volumes:
+  pgdata:
+
+networks:
+  coldflow-network:
+    external: false
