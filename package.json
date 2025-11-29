@@ -8,10 +8,17 @@
     "build": "pnpm -r build",
     "lint": "pnpm -r lint",
     "db:generate": "pnpm --filter db db:generate",
-    "db:migrate": "pnpm --filter db db:migrate" 
+    "db:migrate": "pnpm --filter db db:migrate"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "packageManager": "pnpm@10.23.0"
+  "packageManager": "pnpm@10.24.0",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "sharp",
+      "esbuild",
+      "unrs-resolver"
+    ]
+  }
 }

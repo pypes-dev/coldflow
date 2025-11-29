@@ -14,7 +14,7 @@ export async function Footer() {
               <Logo className="text-white" />
             </Link>
             <p className="text-sm text-gray-400">
-              Open source cold email that's functional, transparent, and accessible.
+              Open source cold email that&apos;s functional, transparent, and accessible.
             </p>
           </div>
 
@@ -27,7 +27,7 @@ export async function Footer() {
               <Link href="/admin" className="text-sm text-gray-400 hover:text-white transition-colors">
                 Get Started
               </Link>
-              <Link href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-sm text-gray-400 hover:text-white transition-colors">
+              <Link href="https://github.com/pypes-dev/coldflow" target="_blank" rel="noopener noreferrer" className="text-sm text-gray-400 hover:text-white transition-colors">
                 GitHub
               </Link>
             </nav>
