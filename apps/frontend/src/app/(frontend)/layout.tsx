@@ -34,6 +34,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 }
 
 export const metadata: Metadata = {
+  title: 'Coldflow – Open Source Cold Email Platform',
+  description:
+    'Coldflow is an open-source cold email platform for running transparent, self-hostable cold email campaigns with built-in deliverability tools.',
+  keywords: ['cold email', 'open source email', 'outbound email', 'email marketing', 'email outreach', 'email automation', 'email sequencer', 'email personalization', 'email deliverability', 'email verification'],
   metadataBase: new URL(getServerSideURL()),
   openGraph: mergeOpenGraph(),
   twitter: {
