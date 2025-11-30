@@ -126,3 +126,37 @@ export const getUserRole = async (userId: string, subAgencyId: string) => {
 
   return assignment?.role || null;
 };
+
+export interface RoleCheckResult {
+  hasPermission: boolean;
+  userRole: "admin" | "member" | "viewer" | null;
+  requiredRole: "admin" | "member" | "viewer";
+}
+
+/**
+ * Check if user has minimum required role in a sub-agency
+ * Role hierarchy: admin > member > viewer
+ */
+export const checkUserRole = async (
+  userId: string,
+  subAgencyId: string,
+  requiredRole: "admin" | "member" | "viewer"
+): Promise<RoleCheckResult> => {
+  const assignment = await db.query.agencyUser.findFirst({
+    where: and(
+      eq(agencyUser.userId, userId),
+      eq(agencyUser.subAgencyId, subAgencyId)
+    ),
+  });
+
+  const roleHierarchy = { admin: 3, member: 2, viewer: 1 };
+  const userRole = assignment?.role || null;
+  const userRoleLevel = userRole ? roleHierarchy[userRole] : 0;
+  const requiredRoleLevel = roleHierarchy[requiredRole];
+
+  return {
+    hasPermission: userRoleLevel >= requiredRoleLevel,
+    userRole,
+    requiredRole,
+  };
+};

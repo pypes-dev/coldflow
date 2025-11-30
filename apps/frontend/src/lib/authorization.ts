@@ -1,8 +1,11 @@
 import { headers } from 'next/headers'
 import { auth } from '@coldflow/auth'
-import { db } from '@coldflow/db'
-import { agencyUser, subAgency } from '@coldflow/db'
-import { eq, and } from 'drizzle-orm'
+import {
+  checkUserRole,
+  isAgencyAdmin as dbIsAgencyAdmin,
+  getUserRole as dbGetUserRole,
+  isSubAgencyOwner,
+} from '@coldflow/db'
 
 export interface AuthenticatedUser {
   id: string
@@ -49,24 +52,15 @@ export async function requireRole(
   subAgencyId: string,
   requiredRole: 'admin' | 'member' | 'viewer'
 ): Promise<boolean> {
-  const assignment = await db.query.agencyUser.findFirst({
-    where: and(
-      eq(agencyUser.userId, userId),
-      eq(agencyUser.subAgencyId, subAgencyId)
-    ),
-  })
+  const result = await checkUserRole(userId, subAgencyId, requiredRole)
 
-  if (!assignment) {
+  if (!result.userRole) {
     throw new AuthorizationError('User is not a member of this agency', 403)
   }
 
-  const roleHierarchy = { admin: 3, member: 2, viewer: 1 }
-  const userRoleLevel = roleHierarchy[assignment.role]
-  const requiredRoleLevel = roleHierarchy[requiredRole]
-
-  if (userRoleLevel < requiredRoleLevel) {
+  if (!result.hasPermission) {
     throw new AuthorizationError(
-      `Insufficient permissions. Required: ${requiredRole}, Current: ${assignment.role}`,
+      `Insufficient permissions. Required: ${requiredRole}, Current: ${result.userRole}`,
       403
     )
   }
@@ -81,14 +75,7 @@ export async function isAgencyAdmin(
   userId: string,
   subAgencyId: string
 ): Promise<boolean> {
-  const assignment = await db.query.agencyUser.findFirst({
-    where: and(
-      eq(agencyUser.userId, userId),
-      eq(agencyUser.subAgencyId, subAgencyId)
-    ),
-  })
-
-  return assignment?.role === 'admin'
+  return dbIsAgencyAdmin(userId, subAgencyId)
 }
 
 /**
@@ -98,11 +85,7 @@ export async function isAgencyOwner(
   userId: string,
   subAgencyId: string
 ): Promise<boolean> {
-  const agency = await db.query.subAgency.findFirst({
-    where: eq(subAgency.id, subAgencyId),
-  })
-
-  return agency?.ownerId === userId
+  return isSubAgencyOwner(userId, subAgencyId)
 }
 
 /**
@@ -112,12 +95,5 @@ export async function getUserRole(
   userId: string,
   subAgencyId: string
 ): Promise<'admin' | 'member' | 'viewer' | null> {
-  const assignment = await db.query.agencyUser.findFirst({
-    where: and(
-      eq(agencyUser.userId, userId),
-      eq(agencyUser.subAgencyId, subAgencyId)
-    ),
-  })
-
-  return assignment?.role || null
+  return dbGetUserRole(userId, subAgencyId)
 }
