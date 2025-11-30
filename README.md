@@ -1,4 +1,4 @@
-# Coldflow
+![Coldflow](COLDFLOW_README.png)
 
 Goal: Make all aspects of cold outbound functional, transparent, and accessible
 

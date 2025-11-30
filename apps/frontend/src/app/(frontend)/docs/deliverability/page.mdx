@@ -60,6 +60,23 @@ Value: v=spf1 include:_spf.yourprovider.com ~all
 
 Replace `_spf.yourprovider.com` with your email provider's SPF include.
 
+**✅ Common Providers & Their SPF Includes**
+
+Here are the correct values depending on who sends your email:
+
+| Email Service | SPF Include |
+|--------------|-------------|
+| Google Workspace / Gmail | `include:_spf.google.com` |
+| Microsoft 365 / Outlook | `include:spf.protection.outlook.com` |
+| Namecheap Email Hosting (Private Email) | `include:spf.privateemail.com` |
+| Zoho Mail | `include:zoho.com` |
+| SendGrid | `include:sendgrid.net` |
+| Mailgun | `include:mailgun.org` |
+| AWS SES | `include:amazonses.com` |
+| Brevo (Sendinblue) | `include:spf.brevo.com` |
+| Postmark | `include:spf.mtasv.net` |
+| Mailchimp | `include:servers.mcsv.net` |
+
 ### DKIM (DomainKeys Identified Mail)
 
 DKIM adds a digital signature to your emails, proving they haven't been tampered with.

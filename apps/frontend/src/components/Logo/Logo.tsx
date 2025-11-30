@@ -14,7 +14,7 @@ export const Logo = (props: Props) => {
   return (
     <div className={clsx('flex gap-2 items-start', className)}>
       <Image
-        src="/ColdFlowLogoLong.png"
+        src="/ColdflowLogoLong.png"
         alt="coldflow logo"
         width={250}
         height={40}
