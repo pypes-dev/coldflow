@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-
+import Script from "next/script";
 import { cn } from '@/utilities/ui'
 import { GeistMono } from 'geist/font/mono'
 import { GeistSans } from 'geist/font/sans'
@@ -28,6 +28,13 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <Header />
           {children}
         </Providers>
+        <Script
+          id="vtag-ai-js"
+          src="https://r2.leadsy.ai/tag.js"
+          async
+          data-pid="QwUu1lu0AmbcFE3u"
+          data-version="062024"
+        />
       </body>
     </html>
   )

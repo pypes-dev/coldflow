@@ -18,6 +18,11 @@
 - Send the emails (with a strict, safe sending limit).
 - See a basic dashboard showing "sent" and "replied."
 
+# Move the needle TO-DO list:
+
+- [ ] Templates for popular email needs i.e "onboarding for SaaS"
+- [ ] Integration with GHL / N8N
+
 # Content TO-DO list:
 
 - [ ] "How to Achieve Perfect Cold Email Deliverability with a Self-Hosted Tool"
