@@ -12,6 +12,7 @@
 # To run locally:
 - download pnpm
 - download docker and cli
+- copy the example.env into .env with `cp .env.example .env`
 - `pnpm i`
 - `pnpm dev`
 - navigate to `localhost:3000`
