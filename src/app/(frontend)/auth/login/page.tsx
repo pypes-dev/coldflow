@@ -37,7 +37,7 @@ export default function LoginPage() {
       if (error) {
         setError(error.message || 'Failed to sign in')
       } else if (data) {
-        router.push('/')
+        router.push('/dashboard')
       }
     } catch (err) {
       setError('An unexpected error occurred')

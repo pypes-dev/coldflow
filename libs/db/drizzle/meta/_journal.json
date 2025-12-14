@@ -43,6 +43,13 @@
       "when": 1764798191449,
       "tag": "0005_yielding_black_panther",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1765079266033,
+      "tag": "0006_ambitious_ezekiel_stane",
+      "breakpoints": true
     }
   ]
 }

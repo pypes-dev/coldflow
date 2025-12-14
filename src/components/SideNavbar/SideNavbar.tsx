@@ -53,7 +53,7 @@ export const SideNavbar: React.FC<SideNavbarProps> = ({
         {/* Navigation */}
         <nav className="flex-1 overflow-hidden flex flex-col min-h-0">
           <button
-            onClick={() => handleNavigation('/dashboard/settings/api-keys')}
+            onClick={() => handleNavigation('/dashboard/email-accounts')}
             className="w-full px-4 py-2 text-left flex items-center gap-2 text-sm font-medium hover:text-primary transition-colors"
           >
             <MailIcon className="w-4 h-4" />

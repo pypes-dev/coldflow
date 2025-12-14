@@ -51,7 +51,7 @@
     "next.config.js",
     "next-sitemap.config.cjs",
     ".next/dev/types/**/*.ts"
-  ],
+, "src/app/(frontend)/docs/email-accounts/page.mdx"  ],
   "exclude": [
     "node_modules"
   ]
