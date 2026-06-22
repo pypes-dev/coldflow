@@ -64,6 +64,31 @@ and follow-up. Each is plaintext, under ~120 words, with a single CTA and
 deliverability notes. See [`templates/README.md`](templates/README.md) for
 how to load one into a campaign.
 
+# Troubleshooting
+
+### Why is my mail landing in spam?
+
+When mail sent through coldflow goes to spam, the first question is always:
+**is the problem my domain/DNS, or is it the relay itself?**
+
+Run [`smtp-warmer`](https://github.com/pypesdev/smtp-warmer) to answer in 30 seconds
+without leaving the terminal:
+
+```bash
+npx smtp-warmer test --host smtp.example.com --port 587 --user me@example.com
+```
+
+It performs a TLS handshake, AUTH+RCPT sandbox (no mail actually sent), DNSBL
+reputation check, and reverse-DNS alignment — then gives you a composite 0–10
+deliverability score with specific fix instructions. Zero deps, zero API keys.
+
+If `smtp-warmer` scores your relay ≥ 8 but mail still goes to spam, the issue is
+your **domain configuration** (SPF, DKIM, DMARC). Use
+[`npx dmarc-doctor yourdomain.com`](https://github.com/pypesdev/dmarc-doctor) for
+colored DNS verdicts and a step-by-step fix guide.
+
+---
+
 # Move the needle TO-DO list:
 
 - [ ] Integration with GHL / N8N
